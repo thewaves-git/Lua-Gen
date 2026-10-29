@@ -4,16 +4,16 @@ export default {
     const path = url.pathname;
 
     if (path.startsWith("/api/")) {
-      // Forward the exact path and query string to steamtools.games
-      const targetUrl = "https://steamtools.games" + path + url.search;
+      // Use steamtoolsapp.com as the upstream target
+      const targetUrl = "https://steamtoolsapp.com" + path + url.search;
 
       try {
         const apiResponse = await fetch(targetUrl, {
           method: request.method,
           headers: {
             "Accept": "application/json, text/plain, */*",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "https://steamtools.games/"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "Referer": "https://steamtoolsapp.com/"
           },
           body: request.method !== "GET" && request.method !== "HEAD" ? await request.text() : null
         });
