@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Generate manifest and Lua templates from a Steam App ID. Direct downloads, no shortlinks.">
+<meta name="description" content="Find real SteamTools Lua, key.vdf, and manifest downloads by Steam App ID or game name.">
 <title>Manifest Lab / SteamTools Utility</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#e9ece5;--ink:#12333e;--muted:#7b9098;--teal:#248a94;--gold:#f2c879;--line:#c6ceca;--dark:#151d1e}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:12px}.shell{margin:0 2.5%;max-width:1500px}.mono{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px}.topbar{height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none}.brand-icon{width:21px;height:21px;background:#1b7f88;display:grid;place-items:center;color:var(--paper);font-size:17px}.nav{display:flex;gap:24px;align-items:center;color:#71868e}.nav a{color:inherit;text-decoration:none}.live:before{content:'';display:inline-block;width:4px;height:4px;background:#5b9d7e;border-radius:50%;margin-right:6px}.workspace{margin-top:25px;display:grid;grid-template-columns:52% 48%;min-height:661px;box-shadow:0 20px 35px #203e3010}.generator{position:relative;overflow:hidden;background:linear-gradient(135deg,#278e98,#155a61);color:#eaf0e4;padding:43px;display:flex;flex-direction:column}.generator:before{content:'';position:absolute;inset:0;background-image:linear-gradient(#e4f7ed07 1px,transparent 1px),linear-gradient(90deg,#e4f7ed07 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(to bottom,#000,transparent 85%);pointer-events:none}.generator:after{content:'';position:absolute;width:340px;height:340px;border:1px solid #a6d4ce40;border-radius:50%;top:139px;left:50%;box-shadow:0 0 0 25px #c2e4d007,0 0 0 50px #c2e4d007;pointer-events:none}.generator>*{position:relative;z-index:1}.eyebrow{margin:0;color:#b6dbd5}.eyebrow b{color:var(--gold)}h1{font-family:'Barlow Condensed',sans-serif;font-size:70px;line-height:.87;letter-spacing:-1.5px;font-weight:700;margin:53px 0 17px}h1 span{color:#a9d4cb}.intro{font-size:11px;line-height:1.6;max-width:285px;margin:0 0 25px}.tree-label{font-size:7px;font-weight:700;color:#ade0d8;letter-spacing:.4px}.tree{font-family:'IBM Plex Mono',monospace;font-size:8px;margin-top:13px;margin-bottom:24px}.folder{margin-bottom:8px}.folder span{color:var(--gold);font-size:15px;margin-right:8px}.branch{border-left:1px solid #a9d4cb70;margin-left:6px;padding:0 0 8px 19px;position:relative}.branch:before{content:'';width:12px;height:1px;background:#a9d4cb70;position:absolute;left:0;top:6px}.branch small{display:block;font-family:'DM Sans',sans-serif;font-size:7px;margin-top:4px}.input-area{border-top:1px solid #b8dad54d;padding-top:18px;margin-top:auto}.input-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;font-size:10px;font-weight:700}.input-label span{font-weight:400;color:#b6dbd5;font-family:'IBM Plex Mono',monospace;font-size:7px}.input-row{display:flex;gap:7px}input{min-width:0;width:100%;border:1px solid #8ebfbc;background:#114c5360;color:#f0f2e8;border-radius:0;padding:12px;font:11px 'IBM Plex Mono',monospace}input::placeholder{color:#9dc6c5}button{cursor:pointer}#generateBtn{border:0;background:var(--gold);color:#253b3c;flex-shrink:0;font:500 9px 'IBM Plex Mono',monospace;padding:0 16px}button:hover{filter:brightness(1.06)}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.input-foot{display:flex;justify-content:space-between;margin-top:8px;font-size:7px;color:#b6d8d5}.input-foot a{color:#e3efdf}.output{background:var(--dark);color:#e9ecdf;padding:37px;display:flex;flex-direction:column}.output-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff25;padding-bottom:15px;color:#839fa6}.status{font-size:7px;color:#b3d5ad}.status:before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:#82bc91;box-shadow:0 0 0 2px #82bc9120;margin-right:6px}h2{font-family:'Barlow Condensed',sans-serif;font-size:38px;line-height:.94;font-weight:500;margin:47px 0 10px}.output-intro{color:#86a0a8;font-size:9px;margin:0 0 3px}.code-card{border:1px solid #ffffff22;background:#0e1516;margin-bottom:10px}.code-title{padding:8px 10px;border-bottom:1px solid #ffffff20;font:7px 'IBM Plex Mono',monospace;display:flex;justify-content:space-between}.dots{color:#506a70;letter-spacing:2px}.code-body{padding:10px 11px}.code-body p{font-size:7px;color:#a4b6b9;margin:0 0 12px}.code-body strong{color:var(--gold);font-weight:500}pre{font:8px/2 'IBM Plex Mono',monospace;color:#bad8df;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.steps{display:flex;justify-content:space-between;margin-top:auto;padding-top:28px;font:7px 'IBM Plex Mono',monospace;color:#81999f}.steps span:last-child{color:#d5e2df}.hidden{display:none!important}.error-message{font-size:11px;margin-top:15px;color:#ffe1b0}.download{background:var(--gold);border:0;padding:9px 12px;font:8px 'IBM Plex Mono',monospace;margin-top:10px}.reset{background:none;border:0;color:#bfd7d7;padding:10px 0;font-size:10px}#gamePreview{margin:15px 0;display:flex;gap:12px}#gameCover{width:90px;object-fit:contain;align-self:start}#gameName{font-size:15px;margin:0 0 5px}#gameAppId,#gameDesc{font-size:9px;color:#92adb4}#gameDesc{line-height:1.5}#loadingState{padding:20px 0;color:var(--gold);font-size:10px}.guide{display:grid;grid-template-columns:43% 57%;padding:40px 24px 52px}.guide .mono{color:#81949e;font-size:7px}.guide h2{font-size:30px;margin:10px 0;line-height:1}.guide h2 span{color:#1a8392}.guide-intro{font-size:9px;line-height:1.8;color:#8599a3;max-width:185px}.questions details{border-top:1px solid var(--line)}.questions details:last-child{border-bottom:1px solid var(--line)}summary{list-style:none;cursor:pointer;font-size:9px;font-weight:500;padding:15px 0;display:flex;justify-content:space-between;gap:20px}summary::-webkit-details-marker{display:none}summary:after{content:'+';color:#23848f;font-size:12px;line-height:1}details[open] summary:after{content:'−'}details p{font-size:10px;line-height:1.7;color:#738891;margin:0 24px 16px 0}.footer{margin:0 24px;border-top:1px solid var(--line);padding:13px 0 17px;display:flex;justify-content:space-between;color:#81949e;font:7px 'IBM Plex Mono',monospace}.footer span{font-size:7px}@media(min-width:1300px){.shell{margin:auto;width:95%}.generator{padding:50px}h1{font-size:85px}}@media(max-width:700px){.shell{margin:0 18px}.nav{gap:10px}.nav>span:first-child{display:none}.workspace{grid-template-columns:1fr}.generator{padding:32px;min-height:650px}.output{padding:30px;min-height:600px}h1{font-size:70px}.guide{grid-template-columns:1fr;padding:40px 0;gap:22px}.guide-intro{max-width:260px}.footer{margin:0;gap:20px;font-size:6px}.mono{font-size:7px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.download{display:inline-block;color:var(--ink);text-decoration:none}.game-choice{display:block;width:100%;text-align:left;background:#203539;color:#e9ecdf;border:1px solid #ffffff25;padding:12px;margin:8px 0;font:12px 'DM Sans',sans-serif}.game-choice small{display:block;color:#a4b6b9;margin-top:4px}button:disabled{opacity:.6;cursor:wait}#instructions{padding-left:20px;font-size:10px;line-height:1.7;color:#a4b6b9}#availability{line-height:1.7;margin:12px 0}
 </style>
 </head>
 <body>
@@ -20,235 +21,32 @@
 <section class="generator" aria-labelledby="generator-title">
 <p class="eyebrow mono"><b>01</b> / MANIFEST GENERATOR</p>
 <h1 id="generator-title">MAKE YOUR<br>LIBRARY<br><span>READY.</span></h1>
-<p class="intro">A small utility for turning a Steam App ID into a manifest file and Lua script. Enter an ID to preview and download both files.</p>
-<div class="tree-label mono">OUTPUT STRUCTURE / TWO DOWNLOADS</div>
-<div class="tree"><div class="folder"><span aria-hidden="true">▱</span>Generated files</div><div class="branch">manifest_[appid].json<small>Game metadata and manifest identifiers</small></div><div class="branch">inject_[appid].lua<small>Commands for steamtools</small></div></div>
-<div class="input-area"><div class="input-label"><label for="appIdInput">Steam App ID</label><span>ENTER NUMERIC ID TO BEGIN</span></div><div class="input-row"><input type="text" inputmode="numeric" pattern="[0-9]+" id="appIdInput" placeholder="e.g. 123456" autocomplete="off"><button id="generateBtn">Generate files ↗</button></div><div class="input-foot"><span>Find the number on <a href="https://steamdb.info" target="_blank" rel="noopener noreferrer">SteamDB ↗</a></span><span>Free · No sign-in</span></div><div id="errorMsg" class="error-message hidden" role="alert"></div></div>
+<p class="intro">Find SteamTools downloads by Steam App ID or game name. Search the catalog, choose your game, and get the available files.</p>
+<div class="tree-label mono">OUTPUT / AVAILABLE DOWNLOADS</div>
+<div class="tree"><div class="folder"><span aria-hidden="true">▱</span>SteamTools files</div><div class="branch">.lua + key.vdf<small>Lua from GitHub · key.vdf from SteamTools</small></div><div class="branch">ZIP / .manifest<small>Shown when available from the API</small></div></div>
+<div class="input-area"><div class="input-label"><label for="appIdInput">Steam App ID or game name</label><span>SEARCH THE STEAM CATALOG</span></div><div class="input-row"><input type="text" maxlength="100" id="appIdInput" placeholder="AppID or Game Name" autocomplete="off"><button id="generateBtn">Find files ↗</button></div><div class="input-foot"><span>Find the number on <a href="https://steamdb.info" target="_blank" rel="noopener noreferrer">SteamDB ↗</a></span><span>Free · No sign-in</span></div><div id="errorMsg" class="error-message hidden" role="alert"></div></div>
 </section>
-<section class="output" aria-labelledby="output-title"><div class="output-top mono"><span>02 / OUTPUT DESK</span><span class="status" id="outputStatus">AWAITING APP ID</span></div>
-<div id="outputExamples"><h2 id="output-title">WHAT EACH FILE<br>CONTAINS.</h2><p class="output-intro">Enter an App ID to generate your own. Here's what the two downloads do.</p>
-<div class="code-card"><div class="code-title">INJECT.LUA <span class="dots">•••</span></div><div class="code-body"><p><strong>Lua Inject Script</strong> — Generates commands for steamtools:</p><pre>addappid(123456)
-addappid(123456,0,"[hash]")
-setManifestid(123456,"[id]")</pre></div></div>
-<div class="code-card"><div class="code-title">MANIFEST.JSON <span class="dots">•••</span></div><div class="code-body"><p><strong>Manifest JSON</strong> — Contains metadata:</p><pre>"appid": 123456,
-"game_name": "Game Name",
-"depotid": 0,
-"manifestid": "unique-id",
-"hash": "sha256-like-hash"</pre></div></div></div>
-<div id="loadingState" class="hidden" role="status">Looking up your App ID and generating files…</div>
-<div id="gamePreview" class="hidden"><img id="gameCover" alt="Game cover"><div><h3 id="gameName"></h3><span id="gameAppId"></span><p id="gameDesc"></p></div></div>
-<div id="filesResult" class="hidden" aria-live="polite"><div class="code-card"><div class="code-title">INJECT.LUA</div><div class="code-body"><pre id="luaPreview"></pre><button class="download" onclick="downloadLua()">Download Lua ↓</button></div></div><div class="code-card"><div class="code-title">MANIFEST.JSON</div><div class="code-body"><pre id="manifestPreview"></pre><button class="download" onclick="downloadManifest()">Download manifest ↓</button></div></div><button class="reset" onclick="resetForm()">← Generate another</button></div>
+<section class="output" aria-labelledby="output-title"><div class="output-top mono"><span>02 / OUTPUT DESK</span><span class="status" id="outputStatus">AWAITING SEARCH</span></div>
+<h2 id="output-title">YOUR GAME.<br>REAL FILES.</h2>
+<div id="outputExamples"><p class="output-intro">Example file structure. Contents vary by game.</p><div class="code-card"><div class="code-title">LUA SCRIPT</div><div class="code-body"><p>App registration and depot manifest references:</p><pre>addappid(APP_ID)
+addappid(DEPOT_ID)
+setManifestid(DEPOT_ID, "MANIFEST_ID")</pre></div></div><div class="code-card"><div class="code-title">PACKAGE STRUCTURE</div><div class="code-body"><p>Files you may find inside the download:</p><pre>game/
+├── APP_ID.lua
+├── key.vdf
+└── DEPOT_ID_MANIFEST_ID.manifest</pre></div></div></div>
+<div id="loadingState" class="hidden" role="status">Searching SteamTools…</div>
+<div id="searchResults" class="hidden" aria-live="polite"><p>Choose a game to get its files:</p><div id="gameChoices"></div></div>
+<div id="gamePreview" class="hidden"><img id="gameCover" alt="Game cover"><div><h3 id="gameName"></h3><span id="gameAppId"></span></div></div>
+<div id="filesResult" class="hidden" aria-live="polite"><div id="downloadLinks"></div><p id="availability" class="output-intro"></p><ol id="instructions"></ol><button id="resetBtn" class="reset">← Find another game</button></div>
 <div class="steps"><span>01 / LOOKUP</span><span>02 / GENERATE</span><span>03 / DOWNLOAD</span></div>
 </section></div>
 <section class="guide" aria-labelledby="guide-title"><div><div class="mono">A QUICK FIELD GUIDE / 03</div><h2 id="guide-title">GOOD TO<br><span>KNOW.</span></h2><p class="guide-intro">A few details about the files and how this generator handles your input.</p></div><div class="questions">
-<details><summary>What are the generated files for?</summary><p>The JSON file contains reference metadata, and the Lua file contains SteamTools commands. These are generated templates with simulated identifiers; they do not contain actual Steam depot manifests.</p></details>
+<details><summary>What are the generated files for?</summary><p>Lua scripts are fetched from the steamtoolsapp/ManifestHub repository on GitHub. Individual depot manifests are listed from the same game branch. The public SteamTools endpoint provides available key.vdf and ZIP downloads.</p></details>
 <details><summary>Where do I find a Steam App ID?</summary><p>Find your game on SteamDB or in the Steam store. The number in a store URL after /app/ is the Steam App ID.</p></details>
-<details><summary>What happens to the ID I enter?</summary><p>Your browser uses the ID to request public game details from Steam and generate the files locally. This site does not store your input.</p></details>
-<details><summary>Can I edit the files after downloading?</summary><p>Yes. Open the JSON or Lua template in a text editor and adjust it to your needs.</p></details>
+<details><summary>What happens to the ID I enter?</summary><p>Your App ID or game name is sent through this site’s backend to the public SteamTools API to search for games and retrieve download links. Lua files and manifest listings are fetched from GitHub. This app does not save your searches.</p></details>
+<details><summary>Can I edit the files after downloading?</summary><p>Lua and key.vdf are text files. Follow the installation instructions returned by SteamTools, and keep a backup before editing.</p></details>
 </div></section>
 </main><footer class="footer"><span>MANIFEST LAB / STEAMTOOLS UTILITY</span><span>MADE FOR DIRECT DOWNLOADS · 2026</span></footer></div>
-    <!-- JavaScript -->
-    <script>
-        let currentAppId = null;
-        let currentGameData = null;
-        let currentManifestData = null;
-        let currentLuaData = null;
-
-        const appIdInput = document.getElementById('appIdInput');
-        const generateBtn = document.getElementById('generateBtn');
-        const errorMsg = document.getElementById('errorMsg');
-        const loadingState = document.getElementById('loadingState');
-        const filesResult = document.getElementById('filesResult');
-        const gamePreview = document.getElementById('gamePreview');
-
-        generateBtn.addEventListener('click', generateFiles);
-        appIdInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') generateFiles();
-        });
-
-        // Generate manifest hash (simulated)
-        function generateHash() {
-            const chars = '0123456789abcdef';
-            let hash = '';
-            for (let i = 0; i < 64; i++) {
-                hash += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return hash;
-        }
-
-        // Generate manifest ID
-        function generateManifestId() {
-            return Math.floor(Math.random() * 9999999999999999).toString();
-        }
-
-        // Generate Lua inject script
-        function generateLuaScript(appId, gameName) {
-            const depotId = 0;
-            const manifestHash = generateHash();
-            const manifestId = generateManifestId();
-            
-            return `addappid(${appId})
-addappid(${appId},${depotId},"${manifestHash}")
-setManifestid(${appId},"${manifestId}")`;
-        }
-
-        // Generate manifest JSON
-        function generateManifest(appId, gameName) {
-            const manifestHash = generateHash();
-            const manifestId = generateManifestId();
-            
-            return {
-                appid: parseInt(appId),
-                game_name: gameName || `Game ${appId}`,
-                depotid: 0,
-                manifestid: manifestId,
-                hash: manifestHash,
-                generated_at: new Date().toISOString(),
-                version: "1.0.0"
-            };
-        }
-
-        // Fetch Steam game data
-        async function fetchGameData(appId) {
-            try {
-                const response = await fetch(
-                    `https://store.steampowered.com/api/appdetails?appids=${appId}&cc=US&l=english`
-                );
-                const data = await response.json();
-                
-                if (!data[appId] || !data[appId].success) {
-                    return null;
-                }
-                
-                const gameData = data[appId].data;
-                return {
-                    name: gameData.name || `App ${appId}`,
-                    description: gameData.short_description || 'No description available',
-                    headerImage: gameData.header_image || `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/header.jpg`,
-                    appId: appId
-                };
-            } catch (err) {
-                console.error('Error fetching game data:', err);
-                // Fallback if API fails
-                return {
-                    name: `Game ${appId}`,
-                    description: 'Game loaded from Steam App ID',
-                    headerImage: `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/header.jpg`,
-                    appId: appId
-                };
-            }
-        }
-
-        // Display game preview
-        function displayGamePreview(gameData) {
-            document.getElementById('gameName').textContent = gameData.name;
-            document.getElementById('gameAppId').textContent = gameData.appId;
-            document.getElementById('gameDesc').textContent = gameData.description;
-            document.getElementById('gameCover').hidden = false;
-            document.getElementById('gameCover').src = gameData.headerImage;
-            document.getElementById('gameCover').onerror = function() {
-                this.hidden = true;
-            };
-            gamePreview.classList.remove('hidden');
-        }
-
-        // Main generate function
-        async function generateFiles() {
-            if (generateBtn.disabled) return;
-            const appId = appIdInput.value.trim();
-            
-            errorMsg.classList.add('hidden');
-            filesResult.classList.add('hidden');
-            gamePreview.classList.add('hidden');
-
-            if (!appId) {
-                showError('Please enter a valid Steam App ID');
-                return;
-            }
-
-            if (!/^[1-9]\d*$/.test(appId) || !Number.isSafeInteger(Number(appId))) {
-                showError('App ID must be a positive number');
-                return;
-            }
-
-            loadingState.classList.remove('hidden');
-            generateBtn.disabled = true;
-            document.getElementById('outputStatus').textContent = 'GENERATING';
-            currentAppId = appId;
-
-            try {
-                // Fetch game data from Steam
-                currentGameData = await fetchGameData(appId);
-                
-                if (!currentGameData) {
-                    showError('Game not found. Please check the App ID and try again.');
-                    loadingState.classList.add('hidden');
-                    return;
-                }
-
-                // Generate files
-                const gameName = currentGameData.name;
-                currentManifestData = generateManifest(appId, gameName);
-                currentLuaData = generateLuaScript(appId, gameName);
-
-                // Display preview and results
-                displayGamePreview(currentGameData);
-                displayFiles();
-            } catch (err) {
-                showError('Error generating files: ' + err.message);
-            } finally {
-                generateBtn.disabled = false;
-                document.getElementById('outputStatus').textContent = filesResult.classList.contains('hidden') ? 'AWAITING APP ID' : 'FILES READY';
-                loadingState.classList.add('hidden');
-            }
-        }
-
-        function displayFiles() {
-            document.getElementById('manifestPreview').textContent = 
-                JSON.stringify(currentManifestData, null, 2);
-            document.getElementById('luaPreview').textContent = currentLuaData;
-            
-            filesResult.classList.remove('hidden');
-            document.getElementById('outputExamples').classList.add('hidden');
-            window.scrollTo({ top: gamePreview.offsetTop - 100, behavior: 'smooth' });
-        }
-
-        function downloadManifest() {
-            const content = JSON.stringify(currentManifestData, null, 2);
-            downloadFile(content, `manifest_${currentAppId}.json`, 'application/json');
-        }
-
-        function downloadLua() {
-            downloadFile(currentLuaData, `inject_${currentAppId}.lua`, 'text/plain');
-        }
-
-        function downloadFile(content, filename, mimeType) {
-            const blob = new Blob([content], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function showError(message) {
-            errorMsg.textContent = message;
-            errorMsg.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function resetForm() {
-            document.getElementById('outputExamples').classList.remove('hidden');
-            document.getElementById('outputStatus').textContent = 'AWAITING APP ID';
-            appIdInput.value = '';
-            filesResult.classList.add('hidden');
-            gamePreview.classList.add('hidden');
-            errorMsg.classList.add('hidden');
-            appIdInput.focus();
-        }
-    </script>
+    <script src="/app.js" defer></script>
 </body>
 </html>
