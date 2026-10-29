@@ -8,11 +8,11 @@ function safeUrl(value) {
     return url.protocol === 'https:' && !url.username && !url.password ? url.href : null;
   } catch { return null; }
 }
-
 async function api(path, options) {
-  const response = await fetch(path, { ...options, signal: AbortSignal.timeout(45000) });
+  // Ensure the path always starts with /api/ if it doesn't already
+  const cleanPath = path.startsWith('/') ? path : `/api/${path}`
+  const response = await fetch(cleanPath, { ...options, signal: AbortSignal.timeout(45000) });
   let payload;
-  try { payload = await response.json(); } catch {
     throw new Error('The server returned an unexpected response. Please try again later.');
   }
   if (!response.ok || payload.code !== 0) {
