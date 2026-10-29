@@ -9,18 +9,25 @@ function safeUrl(value) {
   } catch { return null; }
 }
 async function api(path, options) {
-  // Ensure the path always starts with /api/ if it doesn't already
-  const cleanPath = path.startsWith('/') ? path : `/api/${path}`
-  const response = await fetch(cleanPath, { ...options, signal: AbortSignal.timeout(45000) });
-  let payload;
-    throw new Error('The server returned an unexpected response. Please try again later.');
-  }
-  if (!response.ok || payload.code !== 0) {
-    throw new Error(response.status === 429
-      ? 'SteamTools is rate limiting requests. Wait a few seconds and try again.'
-      : payload.message || 'SteamTools could not complete this request. Please try again.');
-  }
-  return payload.data;
+    // Ensure the path always starts with /api/ if it doesn't already
+    const cleanPath = path.startsWith('/') ? path : `/api/${path}`;
+    
+    const response = await fetch(cleanPath, { ...options, signal: AbortSignal.timeout(45000) });
+    let payload;
+    
+    try { 
+        payload = await response.json(); 
+    } catch (err) {
+        throw new Error('The server returned an unexpected response. Please try again later.');
+    }
+    
+    if (!response.ok || payload.code !== 0) {
+        throw new Error(response.status === 429 
+            ? 'SteamTools is rate limiting requests. Wait a few seconds and try again.' 
+            : payload.message || 'SteamTools could not complete this request. Please try again.');
+    }
+    
+    return payload.data;
 }
 
 function clearResults() {
