@@ -1,360 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate manifest and Lua injection scripts for Steam games. Direct downloads, no shortlinks.">
-    <meta property="og:title" content="Manifest & Lua Generator">
-    <meta property="og:description" content="Generate manifest files and Lua scripts for Steam games instantly">
-    <title>Manifest & Lua Generator - SteamTools</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            min-height: 100vh;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            color: #e2e8f0;
-        }
-        
-        .glass-effect {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .input-field {
-            background: rgba(30, 41, 59, 0.8);
-            border: 2px solid rgba(148, 163, 184, 0.2);
-            color: #e2e8f0;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .input-field:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            background: rgba(30, 41, 59, 1);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
-            padding: 14px 32px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
-        }
-        
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-        
-        .btn-download {
-            background: linear-gradient(135deg, #10b981, #06b6d4);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-        
-        .file-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.6));
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .file-card:hover {
-            border-color: rgba(148, 163, 184, 0.4);
-            transform: translateY(-4px);
-        }
-        
-        .spinner {
-            border: 3px solid rgba(148, 163, 184, 0.2);
-            border-top: 3px solid #3b82f6;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            color: #fca5a5;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .success-message {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.5);
-            color: #86efac;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .instruction-box {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .instruction-box strong {
-            color: #60a5fa;
-        }
-        
-        .faq-item {
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-            padding: 16px 0;
-        }
-        
-        .faq-item:last-child {
-            border-bottom: none;
-        }
-        
-        .faq-item h4 {
-            color: #60a5fa;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .faq-item p {
-            color: #cbd5e1;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Generate manifest and Lua templates from a Steam App ID. Direct downloads, no shortlinks.">
+<title>Manifest Lab / SteamTools Utility</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#e9ece5;--ink:#12333e;--muted:#7b9098;--teal:#248a94;--gold:#f2c879;--line:#c6ceca;--dark:#151d1e}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:12px}.shell{margin:0 2.5%;max-width:1500px}.mono{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px}.topbar{height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none}.brand-icon{width:21px;height:21px;background:#1b7f88;display:grid;place-items:center;color:var(--paper);font-size:17px}.nav{display:flex;gap:24px;align-items:center;color:#71868e}.nav a{color:inherit;text-decoration:none}.live:before{content:'';display:inline-block;width:4px;height:4px;background:#5b9d7e;border-radius:50%;margin-right:6px}.workspace{margin-top:25px;display:grid;grid-template-columns:52% 48%;min-height:661px;box-shadow:0 20px 35px #203e3010}.generator{position:relative;overflow:hidden;background:linear-gradient(135deg,#278e98,#155a61);color:#eaf0e4;padding:43px;display:flex;flex-direction:column}.generator:before{content:'';position:absolute;inset:0;background-image:linear-gradient(#e4f7ed07 1px,transparent 1px),linear-gradient(90deg,#e4f7ed07 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(to bottom,#000,transparent 85%);pointer-events:none}.generator:after{content:'';position:absolute;width:340px;height:340px;border:1px solid #a6d4ce40;border-radius:50%;top:139px;left:50%;box-shadow:0 0 0 25px #c2e4d007,0 0 0 50px #c2e4d007;pointer-events:none}.generator>*{position:relative;z-index:1}.eyebrow{margin:0;color:#b6dbd5}.eyebrow b{color:var(--gold)}h1{font-family:'Barlow Condensed',sans-serif;font-size:70px;line-height:.87;letter-spacing:-1.5px;font-weight:700;margin:53px 0 17px}h1 span{color:#a9d4cb}.intro{font-size:11px;line-height:1.6;max-width:285px;margin:0 0 25px}.tree-label{font-size:7px;font-weight:700;color:#ade0d8;letter-spacing:.4px}.tree{font-family:'IBM Plex Mono',monospace;font-size:8px;margin-top:13px;margin-bottom:24px}.folder{margin-bottom:8px}.folder span{color:var(--gold);font-size:15px;margin-right:8px}.branch{border-left:1px solid #a9d4cb70;margin-left:6px;padding:0 0 8px 19px;position:relative}.branch:before{content:'';width:12px;height:1px;background:#a9d4cb70;position:absolute;left:0;top:6px}.branch small{display:block;font-family:'DM Sans',sans-serif;font-size:7px;margin-top:4px}.input-area{border-top:1px solid #b8dad54d;padding-top:18px;margin-top:auto}.input-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;font-size:10px;font-weight:700}.input-label span{font-weight:400;color:#b6dbd5;font-family:'IBM Plex Mono',monospace;font-size:7px}.input-row{display:flex;gap:7px}input{min-width:0;width:100%;border:1px solid #8ebfbc;background:#114c5360;color:#f0f2e8;border-radius:0;padding:12px;font:11px 'IBM Plex Mono',monospace}input::placeholder{color:#9dc6c5}button{cursor:pointer}#generateBtn{border:0;background:var(--gold);color:#253b3c;flex-shrink:0;font:500 9px 'IBM Plex Mono',monospace;padding:0 16px}button:hover{filter:brightness(1.06)}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.input-foot{display:flex;justify-content:space-between;margin-top:8px;font-size:7px;color:#b6d8d5}.input-foot a{color:#e3efdf}.output{background:var(--dark);color:#e9ecdf;padding:37px;display:flex;flex-direction:column}.output-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff25;padding-bottom:15px;color:#839fa6}.status{font-size:7px;color:#b3d5ad}.status:before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:#82bc91;box-shadow:0 0 0 2px #82bc9120;margin-right:6px}h2{font-family:'Barlow Condensed',sans-serif;font-size:38px;line-height:.94;font-weight:500;margin:47px 0 10px}.output-intro{color:#86a0a8;font-size:9px;margin:0 0 3px}.code-card{border:1px solid #ffffff22;background:#0e1516;margin-bottom:10px}.code-title{padding:8px 10px;border-bottom:1px solid #ffffff20;font:7px 'IBM Plex Mono',monospace;display:flex;justify-content:space-between}.dots{color:#506a70;letter-spacing:2px}.code-body{padding:10px 11px}.code-body p{font-size:7px;color:#a4b6b9;margin:0 0 12px}.code-body strong{color:var(--gold);font-weight:500}pre{font:8px/2 'IBM Plex Mono',monospace;color:#bad8df;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}.steps{display:flex;justify-content:space-between;margin-top:auto;padding-top:28px;font:7px 'IBM Plex Mono',monospace;color:#81999f}.steps span:last-child{color:#d5e2df}.hidden{display:none!important}.error-message{font-size:11px;margin-top:15px;color:#ffe1b0}.download{background:var(--gold);border:0;padding:9px 12px;font:8px 'IBM Plex Mono',monospace;margin-top:10px}.reset{background:none;border:0;color:#bfd7d7;padding:10px 0;font-size:10px}#gamePreview{margin:15px 0;display:flex;gap:12px}#gameCover{width:90px;object-fit:contain;align-self:start}#gameName{font-size:15px;margin:0 0 5px}#gameAppId,#gameDesc{font-size:9px;color:#92adb4}#gameDesc{line-height:1.5}#loadingState{padding:20px 0;color:var(--gold);font-size:10px}.guide{display:grid;grid-template-columns:43% 57%;padding:40px 24px 52px}.guide .mono{color:#81949e;font-size:7px}.guide h2{font-size:30px;margin:10px 0;line-height:1}.guide h2 span{color:#1a8392}.guide-intro{font-size:9px;line-height:1.8;color:#8599a3;max-width:185px}.questions details{border-top:1px solid var(--line)}.questions details:last-child{border-bottom:1px solid var(--line)}summary{list-style:none;cursor:pointer;font-size:9px;font-weight:500;padding:15px 0;display:flex;justify-content:space-between;gap:20px}summary::-webkit-details-marker{display:none}summary:after{content:'+';color:#23848f;font-size:12px;line-height:1}details[open] summary:after{content:'−'}details p{font-size:10px;line-height:1.7;color:#738891;margin:0 24px 16px 0}.footer{margin:0 24px;border-top:1px solid var(--line);padding:13px 0 17px;display:flex;justify-content:space-between;color:#81949e;font:7px 'IBM Plex Mono',monospace}.footer span{font-size:7px}@media(min-width:1300px){.shell{margin:auto;width:95%}.generator{padding:50px}h1{font-size:85px}}@media(max-width:700px){.shell{margin:0 18px}.nav{gap:10px}.nav>span:first-child{display:none}.workspace{grid-template-columns:1fr}.generator{padding:32px;min-height:650px}.output{padding:30px;min-height:600px}h1{font-size:70px}.guide{grid-template-columns:1fr;padding:40px 0;gap:22px}.guide-intro{max-width:260px}.footer{margin:0;gap:20px;font-size:6px}.mono{font-size:7px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
-    <div class="min-h-screen flex flex-col">
-        <!-- Header -->
-        <header class="py-16 px-4 text-center border-b border-slate-700/30">
-            <h1 class="text-5xl font-bold mb-4 gradient-text">Manifest & Lua Generator</h1>
-            <p class="text-slate-400 text-lg">Generate manifest.json and Lua scripts for your Steam games instantly</p>
-        </header>
-
-        <!-- Main Content -->
-        <main class="flex-1 py-12 px-4">
-            <div class="max-w-2xl mx-auto">
-                
-                <!-- Instructions -->
-                <div class="instruction-box mb-8">
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        <strong>How to get your App ID:</strong><br>
-                        1. Go to <a href="https://steamdb.info" target="_blank" class="text-blue-400 hover:text-blue-300 underline">SteamDB.info</a><br>
-                        2. Search your game name<br>
-                        3. Copy the App ID number<br>
-                        4. Paste it below and click "Generate Files"
-                    </p>
-                </div>
-
-                <!-- App ID Input -->
-                <div class="mb-8">
-                    <label class="block text-sm font-semibold mb-3 text-slate-300">Steam App ID</label>
-                    <input 
-                        type="number" 
-                        id="appIdInput" 
-                        class="input-field w-full" 
-                        placeholder="Enter your Steam App ID (e.g., 730)"
-                        min="1"
-                    >
-                </div>
-
-                <!-- Generate Button -->
-                <div class="mb-12">
-                    <button id="generateBtn" class="btn-primary w-full text-lg py-4">
-                        Generate Files
-                    </button>
-                </div>
-
-                <!-- Error Message -->
-                <div id="errorMsg" class="error-message mb-8 hidden"></div>
-
-                <!-- Game Preview Section -->
-                <div id="gamePreview" class="bg-slate-900/50 rounded-lg p-6 mb-8 hidden fade-in">
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
-                        <!-- Game Cover -->
-                        <div>
-                            <img id="gameCover" src="" alt="Game Cover" class="rounded-lg shadow-lg w-full h-auto">
-                        </div>
-                        <!-- Game Info -->
-                        <div class="md:col-span-3">
-                            <h3 id="gameName" class="text-3xl font-bold text-slate-100 mb-2"></h3>
-                            <div class="flex items-center gap-4 mb-6">
-                                <div>
-                                    <p class="text-slate-400 text-sm">Steam App ID</p>
-                                    <p id="gameAppId" class="text-2xl font-bold text-blue-400"></p>
-                                </div>
-                                <div class="h-12 w-px bg-slate-700"></div>
-                                <div>
-                                    <p class="text-slate-400 text-sm">Status</p>
-                                    <p class="text-lg font-semibold text-green-400">✓ Ready to Generate</p>
-                                </div>
-                            </div>
-                            <p id="gameDesc" class="text-slate-300 text-sm leading-relaxed"></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Loading State -->
-                <div id="loadingState" class="text-center mb-12 hidden">
-                    <div class="flex justify-center mb-4">
-                        <div class="spinner"></div>
-                    </div>
-                    <p class="text-slate-400">Generating your files...</p>
-                </div>
-
-                <!-- Files Result -->
-                <div id="filesResult" class="hidden">
-                    <h2 class="text-2xl font-bold mb-6 text-slate-200">Your Generated Files</h2>
-                    
-                    <!-- Manifest File Card -->
-                    <div class="file-card mb-6 fade-in">
-                        <div class="flex items-start justify-between mb-4">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-100 flex items-center">
-                                    <span class="inline-block w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mr-3 text-white text-sm font-bold">📋</span>
-                                    manifest.json
-                                </h3>
-                                <p class="text-slate-400 text-sm mt-2">JSON configuration file for your mod</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900/50 rounded-lg p-4 mb-4 max-h-48 overflow-auto">
-                            <pre class="text-xs text-slate-300" id="manifestPreview"></pre>
-                        </div>
-                        <button class="btn-download w-full" onclick="downloadManifest()">
-                            📥 Download Now
-                        </button>
-                    </div>
-
-                    <!-- Lua Inject File Card -->
-                    <div class="file-card fade-in">
-                        <div class="flex items-start justify-between mb-4">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-100 flex items-center">
-                                    <span class="inline-block w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mr-3 text-white text-sm font-bold">🎮</span>
-                                    inject.lua
-                                </h3>
-                                <p class="text-slate-400 text-sm mt-2">Lua injection script for steamtools - paste into your application</p>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900/50 rounded-lg p-4 mb-4 max-h-48 overflow-auto">
-                            <pre class="text-xs text-slate-300 font-mono" id="luaPreview"></pre>
-                        </div>
-                        <button class="btn-download w-full" onclick="downloadLua()">
-                            📥 Download Now
-                        </button>
-                    </div>
-
-                    <div class="mt-8 text-center">
-                        <button 
-                            class="text-slate-400 hover:text-slate-300 transition" 
-                            onclick="resetForm()"
-                        >
-                            ← Generate Another
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- FAQ Footer -->
-        <footer class="border-t border-slate-700/30 bg-slate-900/30 py-12 px-4 mt-16">
-            <div class="max-w-2xl mx-auto">
-                <h2 class="text-2xl font-bold mb-8 text-slate-100">FAQ</h2>
-                
-                <div class="faq-item">
-                    <h4>📁 What are these files used for?</h4>
-                    <p>These files are used for steamtools to download and manage games. The manifest.json contains metadata and file lists, while the Lua script provides game logic integration.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h4>💬 Where do I request a game?</h4>
-                    <p>Join the official Discord community and ask there. The maintainers are active and respond to requests regularly.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h4>🔗 Why is there no shortlink?</h4>
-                    <p>All files are generated directly on your computer with instant downloads. No external links or redirects needed for a faster, cleaner experience.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h4>🎮 Can I modify the generated files?</h4>
-                    <p>Yes! These are just template files. Feel free to edit the JSON manifest and Lua script to match your specific needs.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h4>✅ Is this safe?</h4>
-                    <p>Absolutely. Everything is processed locally in your browser. No data is sent to external servers. Your App ID is only used to generate the template files.</p>
-                </div>
-
-                <div class="mt-12 pt-8 border-t border-slate-700/30 text-center text-slate-500 text-sm">
-                    <p>Manifest & Lua Generator • Direct Download Version • No External Dependencies</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
+<div class="shell">
+<header class="topbar mono"><a class="brand" href="./"><span class="brand-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z M4 7.5l8 5 8-5 M12 12.5V21 M8 5.2l8 5"/></svg></span> MANIFEST LAB</a><nav class="nav" aria-label="Main navigation"><span>STEAMTOOLS UTILITY</span><a href="https://steamdb.info" target="_blank" rel="noopener noreferrer">FIND AN APP ID ↗</a><span class="live">LOCAL GENERATION</span></nav></header>
+<main>
+<div class="workspace">
+<section class="generator" aria-labelledby="generator-title">
+<p class="eyebrow mono"><b>01</b> / MANIFEST GENERATOR</p>
+<h1 id="generator-title">MAKE YOUR<br>LIBRARY<br><span>READY.</span></h1>
+<p class="intro">A small utility for turning a Steam App ID into a manifest file and Lua script. Enter an ID to preview and download both files.</p>
+<div class="tree-label mono">OUTPUT STRUCTURE / TWO DOWNLOADS</div>
+<div class="tree"><div class="folder"><span aria-hidden="true">▱</span>Generated files</div><div class="branch">manifest_[appid].json<small>Game metadata and manifest identifiers</small></div><div class="branch">inject_[appid].lua<small>Commands for steamtools</small></div></div>
+<div class="input-area"><div class="input-label"><label for="appIdInput">Steam App ID</label><span>ENTER NUMERIC ID TO BEGIN</span></div><div class="input-row"><input type="text" inputmode="numeric" pattern="[0-9]+" id="appIdInput" placeholder="e.g. 123456" autocomplete="off"><button id="generateBtn">Generate files ↗</button></div><div class="input-foot"><span>Find the number on <a href="https://steamdb.info" target="_blank" rel="noopener noreferrer">SteamDB ↗</a></span><span>Free · No sign-in</span></div><div id="errorMsg" class="error-message hidden" role="alert"></div></div>
+</section>
+<section class="output" aria-labelledby="output-title"><div class="output-top mono"><span>02 / OUTPUT DESK</span><span class="status" id="outputStatus">AWAITING APP ID</span></div>
+<div id="outputExamples"><h2 id="output-title">WHAT EACH FILE<br>CONTAINS.</h2><p class="output-intro">Enter an App ID to generate your own. Here's what the two downloads do.</p>
+<div class="code-card"><div class="code-title">INJECT.LUA <span class="dots">•••</span></div><div class="code-body"><p><strong>Lua Inject Script</strong> — Generates commands for steamtools:</p><pre>addappid(123456)
+addappid(123456,0,"[hash]")
+setManifestid(123456,"[id]")</pre></div></div>
+<div class="code-card"><div class="code-title">MANIFEST.JSON <span class="dots">•••</span></div><div class="code-body"><p><strong>Manifest JSON</strong> — Contains metadata:</p><pre>"appid": 123456,
+"game_name": "Game Name",
+"depotid": 0,
+"manifestid": "unique-id",
+"hash": "sha256-like-hash"</pre></div></div></div>
+<div id="loadingState" class="hidden" role="status">Looking up your App ID and generating files…</div>
+<div id="gamePreview" class="hidden"><img id="gameCover" alt="Game cover"><div><h3 id="gameName"></h3><span id="gameAppId"></span><p id="gameDesc"></p></div></div>
+<div id="filesResult" class="hidden" aria-live="polite"><div class="code-card"><div class="code-title">INJECT.LUA</div><div class="code-body"><pre id="luaPreview"></pre><button class="download" onclick="downloadLua()">Download Lua ↓</button></div></div><div class="code-card"><div class="code-title">MANIFEST.JSON</div><div class="code-body"><pre id="manifestPreview"></pre><button class="download" onclick="downloadManifest()">Download manifest ↓</button></div></div><button class="reset" onclick="resetForm()">← Generate another</button></div>
+<div class="steps"><span>01 / LOOKUP</span><span>02 / GENERATE</span><span>03 / DOWNLOAD</span></div>
+</section></div>
+<section class="guide" aria-labelledby="guide-title"><div><div class="mono">A QUICK FIELD GUIDE / 03</div><h2 id="guide-title">GOOD TO<br><span>KNOW.</span></h2><p class="guide-intro">A few details about the files and how this generator handles your input.</p></div><div class="questions">
+<details><summary>What are the generated files for?</summary><p>The JSON file contains reference metadata, and the Lua file contains SteamTools commands. These are generated templates with simulated identifiers; they do not contain actual Steam depot manifests.</p></details>
+<details><summary>Where do I find a Steam App ID?</summary><p>Find your game on SteamDB or in the Steam store. The number in a store URL after /app/ is the Steam App ID.</p></details>
+<details><summary>What happens to the ID I enter?</summary><p>Your browser uses the ID to request public game details from Steam and generate the files locally. This site does not store your input.</p></details>
+<details><summary>Can I edit the files after downloading?</summary><p>Yes. Open the JSON or Lua template in a text editor and adjust it to your needs.</p></details>
+</div></section>
+</main><footer class="footer"><span>MANIFEST LAB / STEAMTOOLS UTILITY</span><span>MADE FOR DIRECT DOWNLOADS · 2026</span></footer></div>
     <!-- JavaScript -->
     <script>
         let currentAppId = null;
@@ -452,15 +144,17 @@ setManifestid(${appId},"${manifestId}")`;
             document.getElementById('gameName').textContent = gameData.name;
             document.getElementById('gameAppId').textContent = gameData.appId;
             document.getElementById('gameDesc').textContent = gameData.description;
+            document.getElementById('gameCover').hidden = false;
             document.getElementById('gameCover').src = gameData.headerImage;
             document.getElementById('gameCover').onerror = function() {
-                this.src = `https://via.placeholder.com/300x400?text=${gameData.appId}`;
+                this.hidden = true;
             };
             gamePreview.classList.remove('hidden');
         }
 
         // Main generate function
         async function generateFiles() {
+            if (generateBtn.disabled) return;
             const appId = appIdInput.value.trim();
             
             errorMsg.classList.add('hidden');
@@ -472,12 +166,14 @@ setManifestid(${appId},"${manifestId}")`;
                 return;
             }
 
-            if (isNaN(appId) || appId <= 0) {
+            if (!/^[1-9]\d*$/.test(appId) || !Number.isSafeInteger(Number(appId))) {
                 showError('App ID must be a positive number');
                 return;
             }
 
             loadingState.classList.remove('hidden');
+            generateBtn.disabled = true;
+            document.getElementById('outputStatus').textContent = 'GENERATING';
             currentAppId = appId;
 
             try {
@@ -501,6 +197,8 @@ setManifestid(${appId},"${manifestId}")`;
             } catch (err) {
                 showError('Error generating files: ' + err.message);
             } finally {
+                generateBtn.disabled = false;
+                document.getElementById('outputStatus').textContent = filesResult.classList.contains('hidden') ? 'AWAITING APP ID' : 'FILES READY';
                 loadingState.classList.add('hidden');
             }
         }
@@ -511,6 +209,7 @@ setManifestid(${appId},"${manifestId}")`;
             document.getElementById('luaPreview').textContent = currentLuaData;
             
             filesResult.classList.remove('hidden');
+            document.getElementById('outputExamples').classList.add('hidden');
             window.scrollTo({ top: gamePreview.offsetTop - 100, behavior: 'smooth' });
         }
 
@@ -536,12 +235,14 @@ setManifestid(${appId},"${manifestId}")`;
         }
 
         function showError(message) {
-            errorMsg.textContent = '❌ ' + message;
+            errorMsg.textContent = message;
             errorMsg.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function resetForm() {
+            document.getElementById('outputExamples').classList.remove('hidden');
+            document.getElementById('outputStatus').textContent = 'AWAITING APP ID';
             appIdInput.value = '';
             filesResult.classList.add('hidden');
             gamePreview.classList.add('hidden');
