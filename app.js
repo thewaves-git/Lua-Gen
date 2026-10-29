@@ -165,6 +165,6 @@ element('resetBtn').addEventListener('click', () => {
   clearResults();
   element('appIdInput').value = '';
   element('outputExamples').classList.remove('hidden');
-  element('outputStatus').textContent = 'AWAITING SEARCH';
+  element('outputStatus').textContent = 'FREE GENERATIONS';
   element('appIdInput').focus();
 });
